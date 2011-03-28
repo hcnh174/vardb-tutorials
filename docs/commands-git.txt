@@ -1,0 +1,13 @@
+#set up git repository
+git init
+git add .
+
+git commit -m "first commit"
+git remote add origin git@github.com:hcnh174/operon.git
+git push origin master
+
+
+# to overwrite any changes
+git checkout -f
+
+

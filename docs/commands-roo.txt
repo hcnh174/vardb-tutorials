@@ -1,0 +1,10 @@
+project --topLevelPackage org.operon --projectName operon --java 6
+perform command --mavenCommand install
+
+persistence setup --provider HIBERNATE --database POSTGRES
+
+controller class --class ~.web.OperonController
+
+email sender setup --hostServer smtp.hiroshima-u.ac.jp
+
+

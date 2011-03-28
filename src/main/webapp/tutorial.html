@@ -1,0 +1,399 @@
+<!DOCTYPE html PUBLIC
+	"-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">	
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Operon</title>
+ <link rel="stylesheet" type="text/css" href="/nhayes/static/ext-3.3-beta2-7080/resources/css/ext-all.css" />
+
+<link rel="stylesheet" type="text/css" href="css/extjs-lightbox.css"/>
+
+<link rel="stylesheet" type="text/css" href="css/page.css"/>
+<link rel="stylesheet" type="text/css" href="css/toc.css"/>
+<link rel="stylesheet" type="text/css" href="css/question.css"/>
+<link rel="stylesheet" type="text/css" href="css/score.css"/>
+<link rel="stylesheet" type="text/css" href="css/biol110.css"/>
+
+
+<style>
+
+#maindiv
+{
+	width: 750px; /* 746px */
+	/* width: 1020px; */ 
+}
+
+#main-layout table
+{
+	width: 100%;
+}
+
+.td-north
+{
+	height: 90px;
+}
+
+.td-west
+{
+	width: 160px;
+	padding: 0 10px 0 0;
+	vertical-align: top;
+}
+
+.td-center
+{
+	width: 700px;
+	vertical-align: top;
+}
+
+.td-east
+{
+	padding: 0 0 0 10px;
+	vertical-align: top;
+}
+
+.td-south
+{
+	height: 40px;
+}
+
+#ft
+{
+	margin: 0.25em 0 0 0;
+	/*border: 1px dashed darkblue;*/
+	border-top: 1px dashed darkblue;
+	border-bottom: 1px dashed darkblue;
+	padding: 0.5em;
+	text-align: right;
+	font-size: 70%;
+}
+
+#ft a,
+#ft a:visited
+{
+	text-decoration: underline;
+	color: black;
+}
+
+#page_text
+{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#page_text ul
+{
+	list-style-type: circle;
+	list-style-position: outside;
+	margin-top: 5px;
+	margin-left: 20px;
+}
+
+</style>
+</head>
+
+<body>
+<div id="maindiv"></div>
+
+<div id="north-content" class="x-hidden">
+<div>
+	<img src="images/biol110/logo.gif" border="0" width="746" height="66" alt="logo"/>
+</div>
+<div>
+	<table style="width:746px;margin-top:4px;" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td style="text-align:right;width:14px;"><img src="images/menu_left.gif" alt="menu" width="14" height="27" border="0"/></td>
+		<td style="background-image:url(images/menu_repeat.gif);background-repeat:repeat-x;">
+			<table style="width:100%;padding-bottom:6px;" cellspacing="0" cellpadding="0" border="0">
+			<tr>
+				<td class="location" width="40%">
+				<a href="#" onclick="operon.tutorials()">Tutorials</a>
+				</td>
+
+				<td class="location" align="right">
+				<a href="#" onclick="tutorial.printTutorial()">Print</a>
+				</td>
+			</tr>
+			</table>
+		</td>
+		<td style="width:14px;"><img src="images/menu_right.gif" alt="menu" width="14" height="27" border="0"/></td>
+	</tr>
+	</table>
+</div>
+
+<div>
+	<table class="heading_row" cellspacing="0" cellpadding="0" border="0" width="746" style="border-bottom: 1px solid lightgrey">
+	<tr>
+		<td>
+		<div id="heading">
+		<div id="tutorial_title">tutorial_title</div>
+		</div>
+		</td>
+		
+		<td class="date" align="right">
+		<div id="tutorial_date">September 16, 2010</div>
+		</td>
+	</tr>
+	</table>
+</div>
+
+
+
+	
+</div>
+
+<div id="west-content" class="x-hidden">
+</div>
+
+<!-- 
+<div id="east-content" class="x-hidden">
+	<div id="score">Score</div>
+</div>
+-->
+ 
+<div id="center-content" class="x-hidden">
+	<div id="page_title">page_title</div>
+	<div id="page_text">page_text</div>
+	<div id="navigation">
+		<div id="previous_page">
+			<a href="#" id="backbutton">
+			<img width="65" height="27" alt="back" border="0" src="images/nav_back.gif"/>
+			</a>
+		</div>
+	
+		<div id="next_page">
+			<a href="#" id="nextbutton">
+			<img width="64" height="26" alt="next" border="0" src="images/nav_next.gif"/>
+			</a>
+		</div>
+	</div>
+</div>
+
+<div id="south-content" class="x-hidden">
+<div id="ft">
+&copy;2010 Richard Cyr<br/>
+208 Mueller Lab, University Park, PA 16802-5301 Tele: 814.863.0278, Fax: 814.865.9131
+</div>
+</div>
+
+
+<textarea id="questionTemplate" class="x-hidden">
+	<div align="center">
+			<form name="form:{question_id}" action="" method="post">
+			<input type="hidden" name="tutorial_id" value="{tutorial.tutorial_id}"/>
+			<input type="hidden" name="page_id" value="{page_id}"/>
+			<input type="hidden" name="question_id" value="{question_id}"/>
+			<table class="question_border" cellspacing="0" cellpadding="0" border="0">
+			<tr>
+			<td class="corner">{[this.getBorder("tl")]}</td>
+				<td class="question_top">{[this.spacer]}</td>
+				<td class="corner">{[this.getBorder("tr")]}</td>
+			</tr>
+			<tr>
+				<td class="question_left">{[this.spacer]}</td>
+				<td align="left">
+				<div id="question:{question_id}">
+					<table border="0" width="100%">
+					<tr>
+						<td width="43" valign="top" align="center">
+							<img width="43" height="44" src="{[this.getQuestionImage(values)]}" alt="question"/>
+						</td>
+						<td valign="top" class="question">
+							{number}. {text}
+						</td>
+					</tr>
+					</table>
+	
+					<table border="0" width="100%">
+					<tpl for="choices">
+					<tr>
+						<td width="40">&nbsp;</td>
+						{[this.getChoiceStats(values)]}
+						<td width="4%" valign="top">
+						<input type="radio" name="choice_id" value="{choice_id}" {[this.getRadioId(values)]}
+							{[this.getRadioChecked(values)]} {[this.getRadioDisabled(values)]}/>
+						</td>
+						<td valign="top">
+							<div class="{[this.getChoiceClass(values)]}">
+								{[values.text]}
+							</div>
+							<tpl if="values.showresponse">
+								<div class="{[this.getResponseClass(values)]}">
+									{[values.response]}
+								</div>
+							</tpl>
+						</td>
+					</tr>
+					</tpl>
+					</table>
+					
+					{[this.getQuestionStats(values)]}
+
+					<tpl if="!complete && interactive">
+					<div class="question_submit">
+						<a href="#" onclick="tutorial.submitAnswer('{question_id}',operon.getRadioValue(document.forms['form:{question_id}'],'choice_id'))">
+						<img src="images/q_submit.gif" width="92" height="26" alt="Submit" border="0"/>
+						</a>						
+					</div>
+					</tpl>
+					<tpl if="complete">
+					<div class="question_submit">
+						<a href="#" onclick="tutorial.nextPage()">
+						<img src="images/q_continue.gif" width="92" height="26" alt="Submit" border="0"/>
+						</a>						
+					</div>
+					</tpl>
+				</div>
+				</td>
+				<td class="question_right">{[this.spacer]}</td>
+			</tr>
+			<tr>
+				<td class="corner">{[this.getBorder("bl")]}</td>
+				<td class="question_bottom">{[this.spacer]}</td>
+				<td class="corner">{[this.getBorder("br")]}</td>
+			</tr>
+			</table>
+			</form>
+			</div>
+</textarea>
+
+<textarea id="scoreTemplate" class="x-hidden">
+<table width="200" cellspacing="0" cellpadding="5" border="0" class="score_holder">
+			<tr>
+				<td class="score_header">
+				<span class="score_header">Score Results</span>
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<table width="100%" border="1" cellpadding="3" cellspacing="0">
+				<tr>
+					<td width="10" align="center">
+						<img src="images/check_sm15.gif" alt="check" width="15" height="15" border="0"/>
+					</td>
+					{[this.scorebar(values,values.numcorrect,"#009966")]}			
+					<td align="center" width="10">
+						<span class="score_summary">{numcorrect}&nbsp;of&nbsp;{numcompleted}</span>
+					</td>
+				</tr>
+				<tr>
+					<td width="10" align="center">
+						<img src="images/x_sm15.gif" alt="X" width="15" height="15" border="0"/>
+					</td>					
+					{[this.scorebar(values,values.numincorrect,"red")]}
+					<td align="center" width="10">
+						<span class="score_summary">{numincorrect}&nbsp;of&nbsp;{numcompleted}</span>
+					</td>
+				</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+				<table width="90%" border="1" cellpadding="1" cellspacing="0">
+			       <tr>
+						<td align="center">Question</td>
+						<td align="center">Correct</td>
+						<td align="center">Tries</td>
+						<td align="center">Score</td>
+						<td align="center">Page</td>
+					</tr>
+					<tpl for="questions">
+					<tr align="center">
+			
+						<td align="center">
+						<a href="#" onclick="tutorial.gotoPage('{[values.page_id]}')" class="score">{[values.number]}</a>
+						</td>
+			
+						<td align="center">
+			            <img width="15" height="15" src="{[this.scoreimage(values)]}"/>
+						</td>
+			
+						<td align="center">
+						<tpl if="values.complete">{[values.tries]}</tpl>
+						</td>
+			
+						<td align="center">
+						<tpl if="values.complete">{[values.score]}</tpl>
+						</td>
+			
+						<td align="center">
+						<a href="#" onclick="tutorial.gotoPage('{[values.page_id]}')" class="score">{[values.number]}</a>
+						</td>
+					</tr>
+					</tpl>
+				</table>
+				</td>
+			</tr>
+			</table>
+</textarea>
+
+
+<textarea id="tocTemplate" class="x-hidden">
+<table style="width:160px;" cellspacing="0" cellpadding="0" border="0">
+<tr>
+	<td class="toc_top">{spacer}</td>
+</tr>
+<tr>
+	<td class="toc_middle">
+	<table id="tocpages" cellspacing="0" cellpadding="3">
+	<tpl for="pages">
+	<tr>
+		<td class="{[this.getCssClass(values)]}">
+		<tpl if="values.enabled"><a href="javascript:tutorial.gotoPage('{page_id}')">{number}. {title}</a></tpl>
+		<tpl if="!values.enabled">{number}. {title}</tpl>
+		</td>
+	</tr>
+	</tpl>
+	</table>		
+	</td>
+</tr>
+<tr>
+	<td class="toc_bottom">{spacer}</td>
+</tr>
+</table>
+</textarea>
+
+<script type="text/javascript" src="/nhayes/static/ext-3.3-beta2-7080/adapter/ext/ext-base-debug-w-comments.js"></script>
+<script type="text/javascript" src="/nhayes/static/ext-3.3-beta2-7080/ext-all-debug-w-comments.js"></script>
+
+<script src="js/extjs-lightbox.js" type="text/javascript"></script>
+
+<script src="js/namespace.js" type="text/javascript"></script>
+<script src="js/operon.js" type="text/javascript"></script>
+<script src="js/resource.js" type="text/javascript"></script>
+<script src="js/image.js" type="text/javascript"></script>
+<script src="js/flash.js" type="text/javascript"></script>
+<script src="js/link.js" type="text/javascript"></script>
+<script src="js/choice.js" type="text/javascript"></script>
+<script src="js/question.js" type="text/javascript"></script>
+<script src="js/page.js" type="text/javascript"></script>
+<script src="js/toc.js" type="text/javascript"></script>
+<script src="js/score.js" type="text/javascript"></script>
+<script src="js/tutorial.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+var tutorial;
+
+Ext.onReady(function()
+{
+	Ext.operon.Operon.onReady();		
+	var tutorial_id=operon.getQueryStringParam('id','biol110_02');
+	operon.tutorial(tutorial_id);
+});
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-7509406-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</body>
+</html>

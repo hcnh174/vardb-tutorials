@@ -1,0 +1,96 @@
+#toc
+{
+	
+}
+
+.toc_top
+{
+	height: 15px;
+	background-repeat: no-repeat;
+}
+
+.toc_middle
+{
+	background-repeat: repeat-y;
+	padding-right: 4px;
+	padding-left: 1px;
+}
+
+.toc_bottom
+{
+	height: 16px;
+	background-repeat: no-repeat;
+}
+
+#tocpages
+{
+	width: 154px;
+}
+
+#tocpages td
+{
+	color: white;
+	font-weight: bold;
+	padding-left: 18px;
+	text-indent: -14px;
+	font-size: 8pt;
+	border-top-color: white;
+	border-top-style: solid;
+	border-top-width: 1px;
+}
+
+#tocpages a
+{
+	text-decoration: none;
+	font-size: 8pt;
+}
+
+/* completed */
+#tocpages td.completed
+{
+
+}
+
+#tocpages td.completed a, #tocpages td.completed a:visited
+{
+
+}
+
+#tocpages td.completed a:hover
+{
+	color: #FFFFFF;	
+}
+
+/* current */
+#tocpages td.current
+{
+
+}
+
+#tocpages td.current a, #tocpages td.current a:visited
+{
+
+}
+
+#tocpages td.current a:hover
+{
+	color: #FFFFFF;	
+}
+
+/* future */
+
+#tocpages td.future
+{
+	color: #FFFFFF;
+}
+
+#tocpages td.future a, #tocpages td.future a:visited
+{
+	color: #FFFFFF;
+}
+
+#tocpages td.future a:hover
+{
+	color: #CCCCCC;
+}
+

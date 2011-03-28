@@ -1,0 +1,144 @@
+.location, .location a
+{
+	font-size: 8pt;	
+	color: #bbbbbb;
+}
+
+#page_title
+{
+	font-size: 110%;
+	font-weight: bold;
+}
+
+#page_text
+{
+	font-size: 90%;
+}
+
+#navigation
+{
+	text-align: center;
+	width: 530px;
+}
+
+#previous_page
+{
+	float: left;
+}
+
+#next_page
+{
+	text-align: right;
+}
+
+#score
+{
+	float: left;
+}
+
+#tutorial_list
+{
+	position: absolute;
+	left: 10px;
+	top: 100px;
+	visibility: hidden;
+	border: 1px solid black;
+	background-color: gray;
+	color: white;
+	list-style-type: none;
+	width: 300px;
+}
+
+/*************************************************************/
+
+img.thumbnail
+{
+	border: 1px solid #999999;
+}
+
+div.thumbnail
+{
+	float: left;
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 5px;	
+	font-size: 0.8em;
+	font-weight: bold;
+}
+
+div.print_thumbnail
+{
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 5px;
+	font-size: 0.8em;
+	padding: 2px;
+	border: 1px solid lightgrey;
+}
+
+.blowup
+{
+	padding: 5px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #888888;
+	margin-bottom: 5px;
+}
+
+.blowup_title
+{
+	font-weight: bold;
+}
+
+.blowup_title a
+{
+	color: black;
+}
+
+.blowup_caption
+{
+
+}
+
+#resourcelist
+{
+	border-width: 1px;
+	border-style: solid;
+	border-color: #888888;
+	width: 93%;
+}
+
+#resourcelist th
+{
+	background-color: #ececec;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #888888;
+	padding: 5px;
+	font-weight: bold;
+	font-size: 12pt;
+	color: #777777;
+	text-align: left;
+}
+
+#resourcelist td
+{
+	background-color: #ececec;
+}
+
+#resourcelist td td
+{
+	background-color: white;
+}
+
+#resourceslist a.page, #resourceslist a.page: visited
+{
+	color: #777777;
+	font-weight: bold;
+}
+
+#resourceslist a.page
+{
+	color: orange;
+	text-decoration: none;
+}

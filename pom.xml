@@ -17,5 +17,23 @@
 			<artifactId>vardb-util</artifactId>
 			<version>0.1.0.BUILD-SNAPSHOT</version>
         </dependency>
+        <dependency>
+        	<groupId>org.apache.maven.doxia</groupId>
+			<artifactId>doxia-converter</artifactId>
+			<version>1.2</version>
+        </dependency>
  	</dependencies>
+ 	<build>
+		<plugins>
+            <plugin>
+            	<!--  mvn exec:java -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.1</version>				
+				<configuration>
+					<mainClass>org.operon.setup.Setup</mainClass>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

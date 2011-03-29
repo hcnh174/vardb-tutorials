@@ -1,0 +1,496 @@
+package org.operon.setup;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.dom4j.Document;
+import org.dom4j.Element;
+import org.vardb.util.CBeanHelper;
+import org.vardb.util.CDom4jHelper;
+import org.vardb.util.CException;
+import org.vardb.util.CMessageWriter;
+import org.vardb.util.CXmlHelper;
+
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+
+public class CXmlDataReader
+{
+	public static final String ROOT="tutorial";
+	protected CMessageWriter writer;
+	protected CBeanHelper beanhelper=new CBeanHelper();
+
+	
+	private static final String HTML="html";
+	private static final String DRUGS="drugs";
+	//private static final String DRUG="drug";
+	private static final String DISEASES="diseases";
+	//private static final String DISEASE="disease";
+	private static final String STRUCTURES="structures";
+	//private static final String STRUCTURE="structure";
+	private static final String REFS="refs";
+	private static final String REF="ref";
+	//private static final String DATE_PATTERN="MM/dd/yyyy";
+	//private static final String DATETIME_PATTERN="yyyy-MM-dd HH:mm:ss";
+	
+	private Multimap<String,String> tagmap=ArrayListMultimap.create();
+	
+	public CXmlDataReader(CMessageWriter writer)
+	{
+		this.writer=writer;
+//		this.resourceService=resourceService;
+//		this.tagService=tagService;
+//		this.userService=userService;
+	}
+	
+	public void loadXmlFromFolder(String folder)
+	{
+		String xml=CXmlHelper.mergeXmlFiles(folder,ROOT);
+		loadXml(xml);
+	}
+	
+	public void loadXml(String xml)
+	{	
+		xml=CXmlHelper.removeRootElement(xml,ROOT);
+		xml=CXmlHelper.addRootElement(xml,ROOT);
+		Document document=CDom4jHelper.parse(xml);
+		Element root=document.getRootElement();
+		System.out.println("root="+root.getName());
+		if (!root.getName().equals(ROOT))
+			throw new CException("Expecting ["+ROOT+"] as the root element.  found ["+root.getName()+"]");
+		loadXml(root);
+	}
+
+
+	
+	protected void loadXml(Element root)
+	{
+		for (Object node : selectNodes(root,"user"))
+		{
+			//userService.loadUser((Element)node);
+		}
+		for (Object node : selectNodes(root,"image"))
+		{
+			//loadImage((Element)node);
+		}
+		for (Object node : selectNodes(root,"link"))
+		{
+			//loadLink((Element)node);
+		}
+		for (Object node : selectNodes(root,"term"))
+		{
+			//loadTerm((Element)node);
+		}
+		/*
+		for (Object node : selectNodes(root,"virus"))
+		{
+			loadPathogen((Element)node,CConstants.PathogenType.VIRUS);
+		}
+		for (Object node : selectNodes(root,"bacteria"))
+		{
+			loadPathogen((Element)node,CConstants.PathogenType.BACTERIA);
+		}
+		for (Object node : selectNodes(root,"protist"))
+		{
+			loadPathogen((Element)node,CConstants.PathogenType.PROTIST);
+		}
+		for (Object node : selectNodes(root,"fungus"))
+		{
+			loadPathogen((Element)node,CConstants.PathogenType.FUNGUS);
+		}
+		*/
+		for (Object node : selectNodes(root,"family"))
+		{
+			loadFamily((Element)node);
+		}
+
+		/////////////////////////////////////
+		
+		for (Object node : selectNodes(root,"reference"))
+		{
+			loadRef((Element)node);
+		}
+		for (Object node : selectNodes(root,"source"))
+		{
+			loadSource((Element)node);
+		}
+		for (Object node : selectNodes(root,"disease"))
+		{
+			loadDisease((Element)node);
+		}
+		for (Object node : selectNodes(root,"ortholog"))
+		{
+			loadOrtholog((Element)node);
+		}
+		for (Object node : selectNodes(root,"subgroup"))
+		{
+			loadSubgroup((Element)node);
+		}
+		for (Object node : selectNodes(root,"genome"))
+		{
+			loadGenome((Element)node);
+		}
+		//saveOrUpdateAttributes();
+		//applyTags();
+	}
+
+	/*
+	protected void saveOrUpdateAttributes()
+	{
+		for (String tagtype_id : attmap.keySet())
+		{
+			CAttributeList attributes=attmap.get(tagtype_id);
+			this.tagService.getDao().setAttributes(tagtype_id, attributes);
+		}
+	}
+	
+	private void tagTag(String tag1_identifier, String tag2_identifier)
+	{
+		tagmap.put(tag1_identifier,tag2_identifier);
+	}
+	
+	private void applyTags()
+	{
+		for (String tag_identifier : tagmap.keySet())
+		{
+			tagService.getDao().tagTags(tag_identifier,tagmap.get(tag_identifier));
+		}
+	}
+	*/
+	
+	///////////////////////////////////////////////
+	
+	/*
+	private void loadPathogen(Element node, CConstants.PathogenType type)
+	{
+		String identifier=getIdentifier(node);
+		System.out.println("trying to loading pathogen "+identifier);
+		//CTagType tagtype=tagService.getTagType("pathogen");
+		//CTag tag=tagtype.createTag(identifier);
+		for (Iterator<?> iter=node.elementIterator();iter.hasNext();)
+		{
+			Element child=(Element)iter.next();
+			String name=child.getName();
+			String text=CDom4jHelper.getTrimmedText(child);
+			if (name.equals(DISEASES))
+				doNothing();//pathogen.addDiseases(loadDiseases(child));
+			else if (name.equals(DRUGS))
+				doNothing();//pathogen.addDrugs(loadDrugs(child));
+			else if (name.equals(REFS))
+				doNothing();//pathogen.addRefs(findOrCreateRefs(child));
+			else if (name.equals(HTML))
+				doNothing();//setHtml(pathogen,child);
+			else setAttribute("pathogen",identifier,name,text);
+		}
+		this.writer.message("updating pathogen: "+identifier);
+		//tagService.getDao().saveOrUpdate(tag);
+		//return tag;
+	}
+	*/
+	
+	/*
+	private void tagTag(CTag tag1, CTag tag2)
+	{
+		tagService.getDao().tagTags(tag1.getId(),Collections.singletonList(tag2.getIdentifier()));
+	}
+	*/
+	
+	private boolean loadFamily(Element node)
+	{
+		String identifier=getIdentifier(node);
+		System.out.println("trying to loading family "+identifier);
+		
+		String pathogen_identifier=CDom4jHelper.getAttribute(node,"pathogen");
+		//CTag pathogen=tagService.getDao().getTag("pathogen:"+pathogen_name);
+		//if (pathogen==null)
+		//	return notFound("family.pathogen",pathogen_name);
+		
+		//CTagType tagtype=tagService.getDao().getTagType("family");
+		//CTag tag=tagtype.createTag(identifier);
+		
+		//tagTag("pathogen:"+pathogen_identifier,"family:"+identifier);
+		//pathogen.addTag(tag);
+		
+		//setAttribute(tagtype,tag,"pathogen",pathogen_name);
+		//setAttribute(tagtype,tag,"ortholog",CDom4jHelper.getAttribute(node,"ortholog",null));
+		//setAttribute("family",identifier,"pathogen",pathogen_identifier);
+		//setAttribute("family",identifier,"ortholog",CDom4jHelper.getAttribute(node,"ortholog",null));
+		
+		for (Iterator<?> iter=node.elementIterator();iter.hasNext();)
+		{
+			Element child=(Element)iter.next();
+			String name=child.getName();
+			String text=CDom4jHelper.getTrimmedText(child);
+			if (name.equals(REFS))
+				doNothing();//family.addRefs(findOrCreateRefs(child));
+			else if (name.equals(STRUCTURES))
+				doNothing();//family.addStructures(loadStructures(child));
+			else if (name.equals(HTML))
+				doNothing();//setHtml(family,child);
+			//else setAttribute("family",identifier,name,text);
+			//else setAttribute(tagtype,tag,name,text);
+		}
+		this.writer.message("updating family: "+identifier);
+		//tagService.getDao().saveOrUpdate(tag);
+		//return tag;
+		return true;
+	}
+	
+	private boolean loadDisease(Element node)
+	{
+		String identifier=getIdentifier(node);
+		//CTagType tagtype=tagService.getDao().getTagType("disease");
+		//CTag tag=tagtype.createTag(identifier);	
+		for (Iterator<?> iter=node.elementIterator();iter.hasNext();)
+		{
+			Element child=(Element)iter.next();
+			String name=child.getName();
+			String text=CDom4jHelper.getTrimmedText(child);
+			if (name.equals(REFS))
+				doNothing();//disease.addRefs(findOrCreateRefs(child));
+			else if (name.equals(DRUGS))
+				doNothing();//disease.addDrugs(loadDrugs(child));
+			else if (name.equals(HTML))
+				doNothing();//setHtml(disease,child);
+			//else setAttribute("disease",identifier,name,text);
+			//else setAttribute(tagtype,tag,name,text);
+		}
+		this.writer.message("updating disease: "+identifier);
+		//tagService.getDao().saveOrUpdate(tag);
+		return true;
+	}
+	
+	private boolean loadOrtholog(Element node)
+	{
+		String identifier=getIdentifier(node);
+		//CTagType tagtype=tagService.getDao().getTagType("ortholog");
+		//CTag tag=tagtype.createTag(identifier);
+		for (Iterator<?> iter=node.elementIterator();iter.hasNext();)
+		{
+			Element child=(Element)iter.next();
+			String name=child.getName();
+			String text=CDom4jHelper.getTrimmedText(child);
+			if (name.equals(HTML))
+				doNothing();//setHtml(ortholog,child);
+			//else setAttribute("ortholog",identifier,name,text);
+		}
+		this.writer.message("updating ortholog: "+identifier);
+		//tagService.getDao().saveOrUpdate(tag);
+		return true;
+	}
+	
+	private boolean loadSubgroup(Element node)
+	{
+		String identifier=getIdentifier(node);
+		System.out.println("trying to load subgroup "+identifier);
+		
+		String family_identifier=CDom4jHelper.getAttribute(node,"family");
+		//CTag family=tagService.getDao().getTag("family:"+family_name);
+		//if (family==null)
+		//	return notFound("subgroup.family",family_name);
+		
+		//CTagType tagtype=tagService.getDao().getTagType("subgroup");
+		//CTag tag=tagtype.createTag(identifier);
+		//family.addTag(tag);
+		
+		//tagTag("family:"+family_identifier,"subgroup:"+identifier);
+		
+		for (Iterator<?> iter=node.elementIterator();iter.hasNext();)
+		{
+			Element child=(Element)iter.next();
+			String name=child.getName();
+			String text=CDom4jHelper.getTrimmedText(child);
+			if (name.equals(REFS))
+				doNothing();
+			else if (name.equals(HTML))
+				doNothing();
+			//else setAttribute("subgroup",identifier,name,text);
+		}
+		this.writer.message("updating subgroup: "+identifier);
+		//tagService.getDao().saveOrUpdate(tag);
+		return true;
+	}
+	
+	private boolean loadRef(Element node)
+	{
+		String identifier=getIdentifier(node);
+		//CTagType tagtype=tagService.getDao().getTagType("ref");
+		//CTag tag=tagtype.createTag(identifier);
+		for (Iterator<?> iter=node.elementIterator();iter.hasNext();)
+		{
+			Element child=(Element)iter.next();
+			String name=child.getName();
+			String text=CDom4jHelper.getTrimmedText(child);
+			//setAttribute("ref",identifier,name,text);
+		}
+		this.writer.message("updating ref: "+identifier);
+		//tagService.getDao().saveOrUpdate(tag);
+		return true;
+	}
+	
+	private boolean loadSource(Element node)
+	{
+		String identifier=getIdentifier(node);
+		//CTagType tagtype=tagService.getDao().getTagType("source");
+		//CTag tag=tagtype.createTag(identifier);
+		for (Iterator<?> iter=node.elementIterator();iter.hasNext();)
+		{
+			Element child=(Element)iter.next();
+			String name=child.getName();
+			String text=CDom4jHelper.getTrimmedText(child);
+			//setAttribute("source",identifier,name,text);
+		}
+		//tagService.getDao().saveOrUpdate(tag);
+		return true;
+	}
+	
+	private boolean loadGenome(Element node)
+	{
+		String identifier=getIdentifier(node);		
+		String pathogen_identifier=CDom4jHelper.getAttribute(node,"pathogen");
+		//CTag pathogen=tagService.getDao().getTag("pathogen:"+pathogen_name);
+		//if (pathogen==null)
+		//	return notFound("genome.pathogen",pathogen_name);
+		
+		//CTagType tagtype=tagService.getDao().getTagType("genome");
+		//CTag tag=tagtype.createTag(identifier);
+		//pathogen.addTag(tag);
+		
+		//tagTag("pathogen:"+pathogen_identifier,"genome:"+identifier);
+
+		for (Iterator<?> iter=node.elementIterator();iter.hasNext();)
+		{
+			Element child=(Element)iter.next();
+			String name=child.getName();
+			String text=CDom4jHelper.getTrimmedText(child);
+			if (name.equals(REFS))
+				doNothing();//genome.addRefs(findOrCreateRefs(child));
+			else if ("country".equals(name))
+				doNothing();//genome.setCountry(this.resourceService.getDao().getCountry(text));
+			//else setAttribute("genome",identifier,name,text);
+		}
+		this.writer.message("updating genome: "+identifier);
+		//tagService.getDao().saveOrUpdate(tag);
+		return true;
+	}
+	
+	/////////////////////////////////////////////////
+	
+	/*
+	private boolean loadTerm(Element node)
+	{
+		String identifier=getIdentifier(node);
+		CTerm term=this.resourceService.findOrCreateTerm(identifier);
+		for (Iterator<?> iter=node.elementIterator();iter.hasNext();)
+		{
+			Element child=(Element)iter.next();
+			String name=child.getName();
+			String text=CDom4jHelper.getTrimmedText(child);
+			if ("definition".equals(name))
+				term.setDefinition(CDom4jHelper.getChildrenAsXml(child));
+			else if (REF.equals(name))
+				doNothing();//term.setRef(findOrCreateRef(text));
+			else setProperty(term,name,text);
+		}
+		//this.resourceService.getDao().updateTerm(term);
+		this.writer.message("adding term: "+identifier);
+		//return term;
+		return true;
+	}
+	*/
+	
+	////////////////////////////////////////////////
+	
+	/*
+	private boolean loadImage(Element node)
+	{
+		String identifier=getIdentifier(node);
+		CImage image=this.resourceService.findOrCreateImage(identifier);
+		for (Iterator<?> iter=node.elementIterator();iter.hasNext();)
+		{
+			Element child=(Element)iter.next();
+			String name=child.getName();
+			String text=CDom4jHelper.getTrimmedText(child);
+			if ("caption".equals(name))
+				image.setCaption(CDom4jHelper.getChildrenAsXml(child));
+			else setProperty(image,name,text);
+		}
+		this.resourceService.getDao().updateImage(image);
+		this.writer.message("updating image: "+identifier);
+		return true;
+	}
+	
+	private boolean loadLink(Element node)
+	{
+		String identifier=getIdentifier(node);
+		CLink link=this.resourceService.findOrCreateLink(identifier);
+		for (Iterator<?> iter=node.elementIterator();iter.hasNext();)
+		{
+			Element child=(Element)iter.next();
+			String name=child.getName();
+			String text=CDom4jHelper.getTrimmedText(child);
+			setProperty(link,name,text);
+		}
+		this.resourceService.getDao().updateLink(link);
+		this.writer.message("updating link: "+identifier);
+		return true;
+
+	}
+	*/
+	
+	////////////////////////////////////////////////
+
+	/*
+	protected void setAttribute(String tagtype_id, String tagname, String name, String value)
+	{
+		CAttributeList attributes=getAttributeList(tagtype_id);
+		attributes.addAttribute(tagname, name, value);
+	}
+	
+	protected CAttributeList getAttributeList(String tagtype_id)
+	{
+		CAttributeList attributes=attmap.get(tagtype_id);
+		if (attributes==null)
+		{
+			attributes=new CAttributeList();			
+			attmap.put(tagtype_id,attributes);
+		}
+		return attributes;
+	}
+	*/
+	
+	
+	
+	protected String getIdentifier(Element node)
+	{
+		return CDom4jHelper.getAttribute(node,"identifier");
+	}
+	
+	/*
+	protected void setAttribute(CTagType tagtype, CTag tag, String name, String value)
+	{
+		tagtype.setAttribute(tag,name,value);
+	}
+	*/
+	
+	protected boolean notFound(String type, String name)
+	{
+		this.writer.warn("can't find "+type+": "+name);
+		return false;
+	}
+	
+	protected List<Element> selectNodes(Element root, String... names)
+	{
+		return CDom4jHelper.selectNodes(root,names);
+	}
+	
+	protected void setProperty(Object obj, String property, String value)
+	{	
+		beanhelper.setPropertyFromString(obj,property,value);
+	}
+	
+	protected void doNothing(){}
+	
+}

@@ -47,4 +47,16 @@
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>dev</name>
+			<type>2</type>
+			<locationURI>TC_SERVER/spring-insight-instance/webapps/dev</locationURI>
+		</link>
+		<link>
+			<name>etc</name>
+			<type>2</type>
+			<locationURI>TUTORIALS_ETC</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>

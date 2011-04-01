@@ -49,14 +49,14 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>dev</name>
-			<type>2</type>
-			<locationURI>TC_SERVER/spring-insight-instance/webapps/dev</locationURI>
-		</link>
-		<link>
 			<name>etc</name>
 			<type>2</type>
 			<locationURI>TUTORIALS_ETC</locationURI>
+		</link>
+		<link>
+			<name>webapps</name>
+			<type>2</type>
+			<locationURI>TC_SERVER/spring-insight-instance/webapps</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

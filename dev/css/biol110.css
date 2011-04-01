@@ -1,0 +1,28 @@
+.toc_top
+{
+	background-image:url(../images/biol110/tutorials_menu_top.gif);
+}
+
+.toc_middle
+{
+	background-image:url(../images/biol110/tutorials_menu_middle.gif);
+}
+
+.toc_bottom
+{
+	background-image:url(../images/biol110/tutorials_menu_bottom.gif);
+}
+
+#tocpages td.completed, #tocpages td.completed a, #tocpages td.completed a:visited
+{	
+	background-color: #C3CFE2;/* @BIOL110_COLOR_LIGHT@; */
+	color: #506691; /* @BIOL110_COLOR_TEXT@;*/
+}
+
+#tocpages td.current, #tocpages td.current a, #tocpages td.current a:visited
+{
+	background-color: #A6B8E2; /* @BIOL110_COLOR_MEDIUM@; */
+	color: #506691; /*@BIOL110_COLOR_TEXT@;*/
+}
+
+

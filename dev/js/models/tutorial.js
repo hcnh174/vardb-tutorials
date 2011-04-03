@@ -1,114 +1,34 @@
-/*global Ext, operon */
-Ext.define('operon.tutorials.Tutorial',
+/*global Ext */
+Ext.regModel('Tutorial',
 {
-	//extend: 'Ext.panel.Panel',
-	
-	// panel config
-	layout:
+	fields:
+	[
+	 	{name: '_id'},
+	 	{name: 'name'},
+	 	{name: 'number', type: 'int'},
+	 	{name: 'title'}
+	],
+	hasMany:
+	[
+	 	{model: 'Page', name : 'pages'},
+	 	{model: 'Question', name : 'questions'},
+		{model: 'Image', name : 'images'},
+		{model: 'Links', name : 'links'},
+		{model: 'Flashs', name : 'flashs'}
+	],
+	proxy:
 	{
-        type: 'table',
-        columns: 2
-    },
-	//defaults: {border: false},//true
-	//renderTo: 'maindiv',
-
-	number: 1,
-	tutorial_title: 'Title',
+		 type: 'rest',
+		 url: '/json',
+		 reader: 'json'
+	},
+ 	questionnumber: 1,
+	imagenumber: 1,
+	linknumber: 1,
+	flashnumber: 1,
 	
-	constructor: function(data)
+	init: function()
 	{
-		/*
-		var config=
-		{
-			border: false,
-			items: 
-			[
-				{
-					id: 'north',
-					colspan: 2,
-					cellCls: 'td-north',
-					contentEl: 'north-content'
-				},
-				{
-					id: 'west',
-					cellCls: 'td-west',
-					contentEl: 'west-content',
-					height: 400
-				},
-				{
-					id: 'center',
-					cellCls: 'td-center',
-					contentEl: 'center-content',
-					height: 400
-				},
-				{
-					id: 'south',
-					colspan: 2,
-					cellCls: 'td-south',
-					contentEl: 'south-content'
-				}
-			]
-		};
-		*/
-		
-		//this.callParent(config);
-		//operon.tutorials.Tutorial.superclass.constructor.call(this,config);
-		
-		this.pages=[];
-		this.questions=[];
-		this.images=[];
-		this.links=[];
-		this.flashs=[];
-		this.questionnumber=1;
-		this.imagenumber=1;
-		this.linknumber=1;
-		this.flashnumber=1;
-
-//		this.addEvents(
-//		{
-//			load: true,
-//			pagechanged: true,
-//			complete: true
-//		});
-		
-		this.tutorial_id=data._id;
-		//this.tutorial_id=data.tutorial_id;
-		this.number=data.number;
-		this.tutorial_title=data.title;
-		var index,page,question,image,link,flash;
-		for (index=0;index<data.pages.length;index++)
-		{
-			this.pages.push(new operon.tutorials.Page(this,data.pages[index]));
-		}
-
-		if (data.questions)
-		{
-			for (index=0;index<data.questions.length;index++)
-			{
-				this.questions.push(new operon.tutorials.Question(this,data.questions[index]));
-			}
-		}
-		if (data.images)
-		{
-			for (index=0;index<data.images.length;index++)
-			{
-				this.images.push(new operon.tutorials.Image(this,data.images[index]));
-			}
-		}
-		if (data.links)
-		{
-			for (index=0;index<data.links.length;index++)
-			{
-				this.links.push(new operon.tutorials.Link(this,data.links[index]));
-			}
-		}
-		if (data.flashs)
-		{
-			for (index=0;index<data.flashs.length;index++)
-			{
-				this.flashs.push(new operon.tutorials.Flash(this,data.flashs[index]));
-			}
-		}
 		this.toc=new operon.tutorials.Toc(this);
 		this.score=new operon.tutorials.Score(this);
 		this.indexResources();
@@ -129,11 +49,9 @@ Ext.define('operon.tutorials.Tutorial',
 		
 		document.title=this.number+'. '+this.tutorial_title;
 		Ext.core.DomHelper.overwrite('tutorial_title',this.number+'. '+this.tutorial_title);
-		//Ext.core.DomHelper.overwrite('tutorial_date',new Date());
-		//this.toc.update();
 		
 		this.curpage=this.pages[0];
-		this.gotoPage(this.curpage.page_id);		
+		this.gotoPage(this.curpage.page_id);
 	},
 	
 	gotoPage:function(page_id)
@@ -145,7 +63,6 @@ Ext.define('operon.tutorials.Tutorial',
 		page.enabled=true;
 		page.update();		
 		this.toc.update();
-		//this.doLayout();
 	},
 	
 	previousPage:function()
@@ -262,11 +179,13 @@ Ext.define('operon.tutorials.Tutorial',
 			else {page.nextpage=this.pages[index+1];}
 		}
 
+		/*
 		// sort resources
 		this.questions.sort(this.sortByNumber);
 		this.images.sort(this.sortByNumber);
 		this.links.sort(this.sortByNumber);
 		this.flashs.sort(this.sortByNumber);
+		*/
 	},
 	
 	getScore:function()
@@ -310,3 +229,107 @@ Ext.define('operon.tutorials.Tutorial',
 		return win;
 	}
 });
+
+
+
+Ext.regModel('Question',
+{
+	fields:
+	[
+	 	{name: 'id'},
+	 	{name: 'text'}	
+	],
+	hasMany: {model: 'Choice', name : 'choices'},
+	belongsTo: 'Tutorial'
+});
+
+Ext.regModel('Choice',
+{
+	fields:
+	[
+	 	{name: 'id'},
+	 	{name: 'text'},
+	 	{name: 'response'},
+	 	{name: 'correct', type: 'boolean'}
+	],
+	belongsTo: 'Question'
+});
+
+Ext.regModel('Image',
+{
+	fields:
+	[
+	 	{name: 'id'},
+	 	{name: 'src'},
+	 	{name: 'width', type: 'int'},
+	 	{name: 'height', type: 'int'},
+	 	{name: 'title'},
+	 	{name: 'caption'}
+	],
+	belongsTo: 'Tutorial'
+});
+
+Ext.regModel('Link',
+{
+	fields:
+	[
+	 	{name: 'id'},
+	 	{name: 'href'},
+	 	{name: 'text'}	
+	],
+	belongsTo: 'Tutorial'
+});
+
+Ext.regModel('Flash',
+{
+	fields:
+	[
+	 	{name: 'id'},
+	 	{name: 'base'},
+	 	{name: 'src'},
+	 	{name: 'title'},
+	 	{name: 'caption'}	
+	],
+	belongsTo: 'Tutorial'
+});
+
+
+/*
+{
+    "id": "82F2F6BC-1482-4878-978B-52953A82AA83",
+    "name": "biol110_02",
+    "number": 2,
+    "title": "Heredity and Life Cycles",
+    "pages": [{
+        "id": "47B99126-86A8-482B-944F-B3226DE5D0BD",
+        "title": "Welcome",
+        "required": false,
+        "printed": false,
+        "text": "This tutorial is designed to help you."
+    }, {
+        "id": "78CA1B40-15FE-4723-8AAC-EF7197E84A42",
+        "title": "Exercises",
+        "required": false,
+        "printed": false,
+        "text": "In this tutorial, you will have the opportunity."
+    }, {
+        "id": "3EC70CA0-9783-442E-89B0-44501BA28986",
+        "title": "Terms",
+        "required": false,
+        "printed": false,
+        "text": "You should have a working knowledge"
+    }],
+    "questions": [],
+    "images": [{
+        "id": "A63A846B-F8ED-4439-8852-0805EA47B222",
+        "src": "biol110/figure_13_9.gif",
+        "width": 715,
+        "height": 295,
+        "title": "The results of crossing over during meiosis",
+        "caption": "The results of crossing over during meiosis"
+    }],
+    "links":[],
+    "flashs":[]    
+}
+*/
+

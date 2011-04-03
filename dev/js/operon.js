@@ -115,8 +115,8 @@ Ext.define('operon.Operon',
 		{
 			Ext.Ajax.request(
 			{
-				url: vardb.util.Utils.webapp()+'/tutorials/'+tutorial_id+'.json',
-				//params: {tutorial_id: tutorial_id},
+				//url: vardb.util.Utils.webapp()+'/json/'+tutorial_id+'.json',
+				url: '/json/'+tutorial_id+'.json',
 				method: 'POST',
 				failure: vardb.util.Utils.onFailure,
 				success: function(response, options)
@@ -128,77 +128,3 @@ Ext.define('operon.Operon',
 		}
 	}
 });
-
-/*
-		selectAll:function(grid)
-		{
-			grid.getSelectionModel().selectAll();
-		},	
-		unselectAll:function(grid)
-		{
-			grid.getSelectionModel().clearSelections();
-		},
-		invertSelection:function(grid)
-		{
-			var rows=grid.getSelections();
-			var indexes=[],index, i;
-			for (i=0;i<rows.length;i++)
-			{
-				indexes.push(grid.getStore().indexOf(rows[i]));
-			}
-			this.selectAll(grid);
-			for (i=0;i<indexes.length;i++)
-			{
-				index=indexes[i];
-				grid.getSelectionModel().deselectRow(index);
-			}
-		},
-		getSelected:function(grid)
-		{
-			var rows=grid.getSelections();
-			var ids=[],index;
-			for (index=0;index<rows.length;index++)
-			{
-				ids.push(rows[index].id);
-			}
-			return ids;
-		},
-		
-		gotoUrl:function(url,params)
-		{
-			var href=this.buildHref(url,params);
-			document.location.href=href;
-		},
-		buildHref:function(url,params)
-		{
-			var qs=this.buildQueryString(params);
-			if (qs!=='')
-				{qs='?'+qs;}
-			var href=this.webapp+url+qs;
-			return href;
-		},	
-		buildQueryString:function(params)
-		{
-			if (!params)
-				{return '';}
-			return Ext.urlEncode(params);
-		},
-		openWindow:function(url,title,options)
-		{
-			if (!title)
-				{title='Operon';}
-			if (!options)
-				{options="scrollbars=1,resizable=1";}
-			var win=window.open(url,title,options);
-			if (!win)
-		    {
-				win = window.open('',title, options);
-				win.location.href = url;
-		    }	
-			if (window.focus)
-			{
-				win.focus();
-			}
-			return win;
-		},
-*/

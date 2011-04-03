@@ -27,6 +27,6 @@ Ext.define('operon.tutorials.Toc',
 			}
 		});
 		var html=template.apply(this);
-		Ext.core.DomHelper.overwrite('west-content',html); //
+		Ext.core.DomHelper.overwrite('toc',html); //
 	}
 });

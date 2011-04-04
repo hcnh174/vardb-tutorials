@@ -1,0 +1,50 @@
+table.score_holder
+{
+  	border-width:1px;
+	border-style:solid;
+	border-color:#888888;
+}
+
+td.score_header
+{
+	background-color:#ececec;
+	border-bottom-width:1px;
+	border-bottom-style:solid;
+	border-bottom-color:#888888;
+}
+
+span.score_header
+{
+	color:#888888;
+	font-family:arial;
+	font-size:12pt;
+	font-weight:bold;
+}
+
+span.score_subheader
+{
+	font-size:12pt;
+	font-weight:bold;	
+}
+
+td.score_correct
+{
+	background-color:#009966;
+}
+
+td.score_incorrect
+{
+	background-color:#cc0000;
+}
+
+td.score, p.score
+{
+	font-family:arial;
+	font-size:10pt;
+}
+
+a.score
+{
+	text-decoration:none;
+	color:darkblue;
+}

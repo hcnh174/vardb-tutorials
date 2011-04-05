@@ -61,8 +61,10 @@ Ext.regModel('Tutorial',
 		if (this.curpage)
 			this.curpage.current=false;
 		this.curpage=page;
-		page.set('current',true);
-		page.set('enabled',true);
+		page.current=true;
+		page.enabled=true;
+		//page.set('current',true);
+		//page.set('enabled',true);
 		page.update();
 		this.toc.update();
 	},
@@ -131,9 +133,9 @@ Ext.regModel('Tutorial',
 		this.gotoPage(page);
 	},
 	
-	gotoPageNumber:function(page_id)
+	gotoPageNumber:function(number)
 	{
-		var page=this.getPageByNumber(page_id);
+		var page=this.getPageByNumber(parseInt(number));
 		this.gotoPage(page);
 	},
 	
@@ -157,8 +159,6 @@ Ext.regModel('Tutorial',
 	{
 		//alert('question_id='+question_id+', choice_id='+choice_id);
 		var question=this.getQuestion(question_id);
-		if (!choice_id)
-			{return;}
 		question.submitAnswer(choice_id);
 	},
 		

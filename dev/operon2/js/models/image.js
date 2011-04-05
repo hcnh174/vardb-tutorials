@@ -13,7 +13,8 @@ Ext.regModel('Image',
 	belongsTo: 'Tutorial',
 	
 	number: null,
-	page_id: null,
+	page_number: null,
+	
 	thumbnail:
 	{
 		width: 100,
@@ -24,7 +25,7 @@ Ext.regModel('Image',
 	{
 		this.tutorial=tutorial;
 		this.page=page;
-		this.page_id=page.get('id');
+		this.page_number=page.get('number');
 		this.number=tutorial.imagenumber++;
 		
 		this.src='images/biol110/bacterial_cell_walls.jpg'; // hack!

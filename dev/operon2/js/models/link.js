@@ -10,13 +10,13 @@ Ext.regModel('Link',
 	belongsTo: 'Tutorial',
 	
 	number: null,
-	page_id: null,
+	page_number: null,
 	
 	indexResources:function(tutorial, page)
 	{
 		this.tutorial=tutorial;
 		this.page=page;
-		this.page_id=page.get('id');
+		this.page_number=page.get('number');
 		this.number=tutorial.linknumber++;
 	},
 	

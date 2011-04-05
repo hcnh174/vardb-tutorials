@@ -13,5 +13,10 @@ Ext.regModel('Choice',
 		
 	showresponse: false,	
 	selected: false,
-	current: false
+	current: false,
+	
+	isCorrect: function()
+	{
+		return this.get('correct');
+	}
 });

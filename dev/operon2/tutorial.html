@@ -106,10 +106,8 @@ body
 	</div>
 </div>
 <div class="yui3-g">
-    <div id="toc" class="yui3-u-5-24">
-	TOC
-    </div>
-    <div class="yui3-u-19-24">	
+    <div id="toc" class="yui3-u" style="width:160px">TOC</div>
+    <div class="yui3-u" style="width:585px; padding-left: 10px">
 		<div id="page_title">page_title</div>
 		<div id="page_text">page_text</div>
 		<div id="navigation">
@@ -190,15 +188,6 @@ body
 						</a>						
 					</div>
 					</tpl>
-					<!-- 
-					<tpl if="complete">
-					<div class="question_submit">
-						<a href="#" onclick="tutorial.nextPage()">
-						<img src="images/q_continue.gif" width="92" height="26" alt="Submit" border="0"/>
-						</a>						
-					</div>
-					</tpl>
-					 -->
 				</div>
 				</td>
 				<td class="question_right">{spacer}</td>
@@ -215,73 +204,73 @@ body
 
 <textarea id="scoreTemplate" class="x-hidden">
 <table width="200" cellspacing="0" cellpadding="5" border="0" class="score_holder">
-			<tr>
-				<td class="score_header">
-				<span class="score_header">Score Results</span>
-				</td>
-			</tr>
-			<tr>
-				<td align="center">
-				<table width="100%" border="1" cellpadding="3" cellspacing="0">
-				<tr>
-					<td width="10" align="center">
-						<img src="images/check_sm15.gif" alt="check" width="15" height="15" border="0"/>
-					</td>
-					{[this.scorebar(values,values.numcorrect,"#009966")]}			
-					<td align="center" width="10">
-						<span class="score_summary">{numcorrect}&nbsp;of&nbsp;{numcompleted}</span>
-					</td>
-				</tr>
-				<tr>
-					<td width="10" align="center">
-						<img src="images/x_sm15.gif" alt="X" width="15" height="15" border="0"/>
-					</td>					
-					{[this.scorebar(values,values.numincorrect,"red")]}
-					<td align="center" width="10">
-						<span class="score_summary">{numincorrect}&nbsp;of&nbsp;{numcompleted}</span>
-					</td>
-				</tr>
-				</table>
-				</td>
-			</tr>
-			<tr>
-				<td align="center">
-				<table width="90%" border="1" cellpadding="1" cellspacing="0">
-			       <tr>
-						<td align="center">Question</td>
-						<td align="center">Correct</td>
-						<td align="center">Tries</td>
-						<td align="center">Score</td>
-						<td align="center">Page</td>
-					</tr>
-					<tpl for="questions">
-					<tr align="center">
-			
-						<td align="center">
-						<a href="#" onclick="tutorial.gotoPage('{[values.page_id]}')" class="score">{[values.number]}</a>
-						</td>
-			
-						<td align="center">
-			            <img width="15" height="15" src="{[this.scoreimage(values)]}"/>
-						</td>
-			
-						<td align="center">
-						<tpl if="values.complete">{[values.tries]}</tpl>
-						</td>
-			
-						<td align="center">
-						<tpl if="values.complete">{[values.score]}</tpl>
-						</td>
-			
-						<td align="center">
-						<a href="#" onclick="tutorial.gotoPage('{[values.page_id]}')" class="score">{[values.number]}</a>
-						</td>
-					</tr>
-					</tpl>
-				</table>
-				</td>
-			</tr>
-			</table>
+<tr>
+	<td class="score_header">
+	<span class="score_header">Score Results</span>
+	</td>
+</tr>
+<tr>
+	<td align="center">
+	<table width="100%" border="1" cellpadding="3" cellspacing="0">
+	<tr>
+		<td width="10" align="center">
+			<img src="images/check_sm15.gif" alt="check" width="15" height="15" border="0"/>
+		</td>
+		{scorebar1}			
+		<td align="center" width="10">
+			<span class="score_summary">{numcorrect}&nbsp;of&nbsp;{numcompleted}</span>
+		</td>
+	</tr>
+	<tr>
+		<td width="10" align="center">
+			<img src="images/x_sm15.gif" alt="X" width="15" height="15" border="0"/>
+		</td>					
+		{scorebar2}
+		<td align="center" width="10">
+			<span class="score_summary">{numincorrect}&nbsp;of&nbsp;{numcompleted}</span>
+		</td>
+	</tr>
+	</table>
+	</td>
+</tr>
+<tr>
+	<td align="center">
+	<table width="90%" border="1" cellpadding="1" cellspacing="0">
+       <tr>
+			<td align="center">Question</td>
+			<td align="center">Correct</td>
+			<td align="center">Tries</td>
+			<td align="center">Score</td>
+			<td align="center">Page</td>
+		</tr>
+		<tpl for="questions">
+		<tr align="center">
+
+			<td align="center">
+			<a href="#" onclick="tutorial.gotoPageNumber('{page_number}')" class="score">{number}</a>
+			</td>
+
+			<td align="center">
+            <img width="15" height="15" src="{scoreimage}"/>
+			</td>
+
+			<td align="center">
+			<tpl if="values.complete">{tries}</tpl>
+			</td>
+
+			<td align="center">
+			<tpl if="values.complete">{score}</tpl>
+			</td>
+
+			<td align="center">
+			<a href="#" onclick="tutorial.gotoPage('{page_id}')" class="score">{number}</a>
+			</td>
+		</tr>
+		</tpl>
+	</table>
+	</td>
+</tr>
+</table>
 </textarea>
 
 

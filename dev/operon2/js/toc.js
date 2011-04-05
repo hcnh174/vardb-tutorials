@@ -4,8 +4,6 @@ Ext.define('operon.tutorials.Toc',
 	constructor: function(tutorial)
 	{
 		this.tutorial=tutorial;
-		//this.pages=tutorial.pages;
-		//operon.tutorials.Toc.superclass.constructor.call(this);
 	},
 	
 	update: function()
@@ -27,7 +25,6 @@ Ext.define('operon.tutorials.Toc',
 		var template=new Ext.XTemplate(str);
 		var html=template.apply(
 		{
-			//spacer: '<img src="images/spacer.gif" width="1" height="1" border="0" alt="spacer"/>',
 			spacer: vardb.util.Utils.spacer(),
 			pages: pages
 		});

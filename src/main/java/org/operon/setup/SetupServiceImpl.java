@@ -22,7 +22,7 @@ import org.vardb.util.CXmlHelper;
 import org.vardb.util.CXmlValidationException;
 import org.vardb.util.SpringBatchHelper;
 
-public class SetupServiceImpl
+public class SetupServiceImpl implements SetupService
 {	
 	public String echo(String message)
 	{

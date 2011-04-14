@@ -1,13 +1,10 @@
 package org.operon.tutorials;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.google.code.morphia.annotations.Embedded;
-import com.google.code.morphia.annotations.Entity;
-import com.google.code.morphia.annotations.Id;
+import javax.persistence.Id;
 
-@Entity("tutorials")
+//@Document //(collection="tutorials")
 public class Tutorial
 {
 	@Id private String id;
@@ -15,23 +12,22 @@ public class Tutorial
 	private Integer number;
 	private String title="";
 
-	@Embedded private List<Page> pages=new ArrayList<Page>();
-	@Embedded private List<Question> questions=new ArrayList<Question>();
-	@Embedded private List<Image> images=new ArrayList<Image>();
-	@Embedded private List<Link> links=new ArrayList<Link>();
-	@Embedded private List<Flash> flashs=new ArrayList<Flash>();
+	private ItemCollection<Page> pages=new ItemCollection<Page>();
+	private ItemCollection<Question> questions=new ItemCollection<Question>();
+	private ItemCollection<Image> images=new ItemCollection<Image>();
+	private ItemCollection<Link> links=new ItemCollection<Link>();
+	private ItemCollection<Flash> flashs=new ItemCollection<Flash>();
 	
 	public Tutorial(){}
 	
-	public Tutorial(String id)
+	public Tutorial(String name)
 	{
-		this.id=id;
-		this.name=id;
+		this.name=name;
 	}
 
 	public String getId(){return this.id;}
 	public void setId(final String id){this.id=id;}
-
+	
 	public String getName(){return this.name;}
 	public void setName(String name){this.name=name;}
 
@@ -40,104 +36,74 @@ public class Tutorial
 
 	public String getTitle(){return this.title;}
 	public void setTitle(String title){this.title=title;}
-	
 	public List<Page> getPages(){return this.pages;}
-	public void setPages(List<Page> pages){this.pages=pages;}
-
-	public List<Image> getImages(){return this.images;}
-	public void setImages(List<Image> images){this.images=images;}
-	
+	public List<Image> getImages(){return this.images;}	
 	public List<Link> getLinks(){return this.links;}
-	public void setLinks(List<Link> links){this.links=links;}
-
 	public List<Flash> getFlashs(){return this.flashs;}
-	public void setFlashs(List<Flash> flashs){this.flashs=flashs;}
-
 	public List<Question> getQuestions(){return this.questions;}
-	public void setQuestions(List<Question> questions){this.questions=questions;}
 	
-	public void add(Page page)
+	public Page add(Page page)
 	{
-		this.pages.add(page);
+		return this.pages.addItem(page);
 	}
 	
-	public void add(Question question)
+	public Question add(Question question)
 	{
-		this.questions.add(question);
+		return this.questions.addItem(question);
 	}
 	
-	public void add(Image image)
+	public Image add(Image image)
 	{
-		this.images.add(image);
+		return this.images.addItem(image);
 	}
 	
-	public void add(Link link)
+	public Link add(Link link)
 	{
-		this.links.add(link);
+		return this.links.addItem(link);
 	}
 	
-	public void add(Flash flash)
+	public Flash add(Flash flash)
 	{
-		this.flashs.add(flash);
+		return this.flashs.addItem(flash);
 	}
 	
-	public Page findOrCreatePage(String page_id)
+	public Page findOrCreatePage(final String page_id)
 	{
-		for (Page page : pages)
-		{
-			if (page.getId().equals(page_id))
-				return page;
-		}
-		Page page=new Page(page_id);
-		add(page);
+		Page page=this.pages.findItem(page_id);
+		if (page==null)
+			return add(new Page(page_id));
 		return page;
 	}
 	
 	public Question findOrCreateQuestion(String question_id)
 	{
-		for (Question question : questions)
-		{
-			if (question.getId().equals(question_id))
-				return question;
-		}
-		Question question=new Question(question_id);
-		add(question);
+		Question question=this.questions.findItem(question_id);
+		if (question==null)
+			return add(new Question(question_id));
 		return question;
 	}
 	
 	public Image findOrCreateImage(String image_id)
 	{
-		for (Image image : images)
-		{
-			if (image.getId().equals(image_id))
-				return image;
-		}
-		Image image=new Image(image_id);
-		add(image);
+		Image image=this.images.findItem(image_id);
+		if (image==null)
+			return add(new Image(image_id));
 		return image;
 	}
 	
 	public Link findOrCreateLink(String link_id)
 	{
-		for (Link link : links)
-		{
-			if (link.getId().equals(link_id))
-				return link;
-		}
-		Link link=new Link(link_id);
-		add(link);
+		Link link=this.links.findItem(link_id);
+		if (link==null)
+			return add(new Link(link_id));
 		return link;
 	}
 	
 	public Flash findOrCreateFlash(String flash_id)
 	{
-		for (Flash flash : flashs)
-		{
-			if (flash.getId().equals(flash_id))
-				return flash;
-		}
-		Flash flash=new Flash(flash_id);
-		add(flash);
+		Flash flash=this.flashs.findItem(flash_id);
+		if (flash==null)
+			return add(new Flash(flash_id));
 		return flash;
 	}
 }

@@ -2,12 +2,8 @@ package org.operon.tutorials;
 
 import javax.persistence.Id;
 
-import com.google.code.morphia.annotations.Embedded;
-
-@Embedded
-public class Image
+public class Image extends Resource
 {
-	protected String id;
 	protected String src="";
 	protected Integer width=100;
 	protected Integer height=100;
@@ -25,12 +21,8 @@ public class Image
 	
 	public Image(String id)
 	{
-		this.id=id;
+		super(id);
 	}
-	
-	@Id
-	public String getId(){return this.id;}
-	public void setId(String id){this.id=id;}
 
 	public String getSrc(){return this.src;}
 	public void setSrc(String src){this.src=src;}

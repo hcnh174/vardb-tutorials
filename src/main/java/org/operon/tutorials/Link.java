@@ -1,11 +1,7 @@
 package org.operon.tutorials;
 
-import com.google.code.morphia.annotations.Embedded;
-
-@Embedded
-public class Link
-{	
-	protected String id;
+public class Link extends Resource
+{
 	protected String href="http://www.psu.edu";
 	protected String text="click here";
 	
@@ -13,12 +9,9 @@ public class Link
 	
 	public Link(String linkid)
 	{
-		this.id=linkid;
+		super(linkid);
 	}
-	
-	public String getId(){return this.id;}
-	public void setId(String id){this.id=id;}
-	
+
 	public String getHref(){return this.href;}
 	public void setHref(String href){this.href=href;}
 

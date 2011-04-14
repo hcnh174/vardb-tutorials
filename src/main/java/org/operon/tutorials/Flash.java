@@ -1,11 +1,7 @@
 package org.operon.tutorials;
 
-import com.google.code.morphia.annotations.Embedded;
-
-@Embedded
-public class Flash
+public class Flash extends Resource
 {	
-	protected String id;
 	protected String base="biol110/animations/";
 	protected String src="flash.swf";
 	protected String title="";
@@ -15,11 +11,8 @@ public class Flash
 	
 	public Flash(String id)
 	{
-		this.id=id;
+		super(id);
 	}
-	
-	public String getId(){return this.id;}
-	public void setId(String id){this.id=id;}
 	
 	public String getBase(){return this.base;}
 	public void setBase(String base){this.base=base;}

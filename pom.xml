@@ -31,7 +31,8 @@
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.1</version>				
 				<configuration>
-					<mainClass>org.operon.setup.Setup</mainClass>
+					<mainClass>org.operon.tutorials.App</mainClass>
+					<!-- <mainClass>org.operon.setup.Setup</mainClass> -->
 				</configuration>
 			</plugin>
 		</plugins>

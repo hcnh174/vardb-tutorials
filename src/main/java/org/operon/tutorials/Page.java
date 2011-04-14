@@ -1,11 +1,7 @@
 package org.operon.tutorials;
 
-import com.google.code.morphia.annotations.Embedded;
-
-@Embedded
-public class Page
+public class Page extends Item
 {	
-	private String id;
 	private String title="";
 	private Boolean required=false;
 	private Boolean printed=false;
@@ -15,12 +11,9 @@ public class Page
 	
 	public Page(String id)
 	{
-		this.id=id;
+		super(id);
 	}
-
-	public String getId(){return this.id;}
-	public void setId(final String id){this.id=id;}
-
+	
 	public String getTitle(){return this.title;}
 	public void setTitle(String title){this.title=title;}
 

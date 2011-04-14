@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.dom4j.Document;
 import org.dom4j.Element;
+import org.operon.tutorials.App;
 import org.operon.tutorials.Choice;
 import org.operon.tutorials.Flash;
 import org.operon.tutorials.Image;
@@ -23,6 +26,8 @@ import org.vardb.util.CXmlHelper;
 
 public class CXmlDataReader
 {
+	private static final Log log = LogFactory.getLog(CXmlDataReader.class);
+	
 	public static final String ROOT="tutorial";
 	protected CMessageWriter writer;
 	protected CBeanHelper beanhelper=new CBeanHelper();
@@ -56,6 +61,7 @@ public class CXmlDataReader
 	
 	public void loadXml(String xml)
 	{	
+		xml=CXmlHelper.removePI(xml,ROOT);
 		xml=CXmlHelper.removeRootElement(xml,ROOT);
 		xml=CXmlHelper.addRootElement(xml,ROOT);
 		Document document=CDom4jHelper.parse(xml);
@@ -112,7 +118,7 @@ public class CXmlDataReader
 			else setProperty(tutorial,name,text);
 		}
 		this.writer.message("updating tutorial: ["+tutorial.getId()+"]");
-		this.tutorialService.getDao().updateTutorial(tutorial);
+		this.tutorialService.updateTutorial(tutorial);
 		return tutorial;
 	}
 	

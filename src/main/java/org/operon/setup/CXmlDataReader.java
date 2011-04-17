@@ -33,31 +33,44 @@ public class CXmlDataReader
 	protected CBeanHelper beanhelper=new CBeanHelper();
 	
 	protected TutorialService tutorialService;
-	//protected IUserService userService;
 	protected List<Tutorial> tutorials=new ArrayList<Tutorial>();
-	private String curfilename=null;
 	
-	public CXmlDataReader(CMessageWriter writer)
+	public CXmlDataReader(TutorialService tutorialService, CMessageWriter writer)
 	{
+		this.tutorialService=tutorialService;
 		this.writer=writer;
 	}
 	
+	/*
 	public void loadXmlFromFolder(String folder)
 	{		
 		List<String> filenames=CFileHelper.listFilesRecursively(folder,".xml");
 		for (String filename : filenames)
 		{
 			System.out.println("loading file "+filename);
-			curfilename=filename;
 			String xml=CFileHelper.readFile(filename);
 			xml=CXmlHelper.removePI(xml,ROOT);
-			xml="<operon>\n"+xml+"</operon>\n";
+			//xml="<operon>\n"+xml+"</operon>\n";
 			//CFileHelper.writeFile("c:/temp/tutorial.xml",xml);
 			Document document=CDom4jHelper.parse(xml);
 			Element root=document.getRootElement();
 			loadXml(root);
 		}
 	}
+	*/
+	
+	/*
+	public void loadXmlFromFolder(String folder)
+	{		
+		List<String> filenames=CFileHelper.listFilesRecursively(folder,".xml");
+		for (String filename : filenames)
+		{
+			System.out.println("loading file "+filename);
+			String xml=CFileHelper.readFile(filename);
+			loadXml(xml);
+		}
+	}
+	*/
 	
 	public void loadXml(String xml)
 	{	
@@ -96,7 +109,7 @@ public class CXmlDataReader
 	{
 		String tutorial_id=getId(node);
 		Tutorial tutorial=this.tutorialService.findOrCreateTutorial(tutorial_id);
-		tutorial.setName(getTutorialName());
+		tutorial.setName(CDom4jHelper.getAttribute(node,"name"));
 		tutorial.setNumber(getNumber(tutorial.getName()));
 		for (Iterator<?> iter=node.elementIterator();iter.hasNext();)
 		{
@@ -122,6 +135,7 @@ public class CXmlDataReader
 		return tutorial;
 	}
 	
+	/*
 	private String getTutorialName()
 	{
 		String name=CFileHelper.stripPath(curfilename);
@@ -130,6 +144,7 @@ public class CXmlDataReader
 			name=name.substring(3);
 		return name;
 	}
+	*/
 	
 	private Integer getNumber(String name)
 	{

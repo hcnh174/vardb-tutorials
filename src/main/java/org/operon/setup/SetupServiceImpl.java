@@ -1,29 +1,20 @@
 package org.operon.setup;
 
 import java.util.List;
-import java.util.Map;
 
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.JobParametersBuilder;
-import org.springframework.batch.core.JobParametersInvalidException;
-import org.springframework.batch.core.launch.JobLauncher;
-import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
-import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
-import org.springframework.batch.core.repository.JobRestartException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.operon.tutorials.TutorialService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.vardb.util.CException;
 import org.vardb.util.CFileHelper;
 import org.vardb.util.CMessageWriter;
-import org.vardb.util.CStringHelper;
 import org.vardb.util.CXmlHelper;
 import org.vardb.util.CXmlValidationException;
-import org.vardb.util.SpringBatchHelper;
 
 public class SetupServiceImpl implements SetupService
 {	
+	@Autowired
+	private TutorialService tutorialService;
+	
 	public String echo(String message)
 	{
 		return message.toUpperCase();
@@ -33,7 +24,7 @@ public class SetupServiceImpl implements SetupService
 	{
 		try
 		{
-			CXmlDataReader xmlloader=new CXmlDataReader(writer);
+			CXmlDataReader xmlloader=new CXmlDataReader(tutorialService,writer);
 			xmlloader.loadXml(xml);
 		}
 		catch(Exception e)
@@ -51,8 +42,15 @@ public class SetupServiceImpl implements SetupService
 	
 	public void loadXmlFromFolder(String folder, CMessageWriter writer)
 	{
-		String xml=CXmlHelper.mergeXmlFiles(folder,CXmlDataReader.ROOT);
-		loadXml(xml,writer);
+		writer.message("Loading resources from folder: "+folder);
+		List<String> filenames=CFileHelper.listFilesRecursively(folder,".xml");
+		for (String filename : filenames)
+		{
+			System.out.println("loading file "+filename);
+			loadXmlFromFile(filename,writer);
+		}		
+		//String xml=CXmlHelper.mergeXmlFiles(folder,CXmlDataReader.ROOT);
+		//loadXml(xml,writer);
 		writer.message("Finished loading resources from folder: "+folder);
 	}
 	

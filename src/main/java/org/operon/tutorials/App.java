@@ -18,8 +18,10 @@ public class App {
 	
 	
 	SetupService setupService=(SetupService)ctx.getBean("setupService");
-	String folder="C:/workspace/vardb-tutorials.etc/tutorials/biol110/";
-	setupService.loadXmlFromFile(folder+"NEWbiol110_02.xml", new CMessageWriter());
+	//String folder="C:/workspace/vardb-tutorials.etc/tutorials/biol110/";
+	String folder="f:/vardb-tutorials.etc/tutorials/biol110/";	
+	//setupService.loadXmlFromFile(folder+"NEWbiol110_02.xml", new CMessageWriter());
+	setupService.loadXmlFromFolder(folder, new CMessageWriter());
 	
 	//TutorialService tutorialService=(TutorialService)ctx.getBean("tutorialService");
 	//tutorialService.test();

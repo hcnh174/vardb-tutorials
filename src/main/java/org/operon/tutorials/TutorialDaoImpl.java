@@ -2,14 +2,9 @@ package org.operon.tutorials;
 
 import java.util.List;
 
-import com.google.code.morphia.DAO;
-import com.google.code.morphia.Datastore;
-import com.google.code.morphia.Morphia;
-import com.mongodb.DB;
-import com.mongodb.Mongo;
-
 public class TutorialDaoImpl implements TutorialDao
 {	
+	/*
 	protected Mongo mongo;
 	protected Morphia morphia;	
 	protected String dbname;
@@ -39,15 +34,6 @@ public class TutorialDaoImpl implements TutorialDao
 	{
 		return tutorialDao;
 	}
-	
-	/*
-	public DB getDB()
-	{
-		if (db==null)
-			db=CMongoHelper.connectToDatabase(dbname);
-		return db;
-	}
-	*/
 	
 	public Datastore getDatastore()
 	{
@@ -87,4 +73,5 @@ public class TutorialDaoImpl implements TutorialDao
 	{
 		return tutorialDao.find().asList();
 	}
+	*/
 }

@@ -91,7 +91,7 @@
 	
 	<!-- <mongo:mapping-converter base-package="org.operon.tutorials"/>  -->
 	
-	<bean id="mongoTemplate" class="org.springframework.data.document.mongodb.MongoTemplate">
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 	    <constructor-arg ref="mongo"/>
 	    <constructor-arg name="databaseName" value="testoperon"/>
 	    <constructor-arg name="defaultCollectionName" value="tutorial"/>

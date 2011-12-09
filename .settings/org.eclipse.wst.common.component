@@ -4,7 +4,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/vardb-util/vardb-util">
+        <dependent-module archiveName="vardb-util-0.1.0.BUILD-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/vardb-util/vardb-util">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="context-root" value="operon"/>

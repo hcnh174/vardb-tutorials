@@ -3,9 +3,9 @@ package org.operon.tutorials;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.document.mongodb.MongoOperations;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.mongodb.core.MongoOperations;
 
 public class TutorialServiceImpl implements TutorialService
 {

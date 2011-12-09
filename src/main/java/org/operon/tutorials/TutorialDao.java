@@ -2,26 +2,22 @@ package org.operon.tutorials;
 
 import java.util.List;
 
-import com.google.code.morphia.DAO;
-import com.google.code.morphia.Datastore;
-import com.google.code.morphia.Morphia;
-import com.mongodb.DB;
-import com.mongodb.Mongo;
-
 //@Transactional(readOnly=false)
 public interface TutorialDao
 {	
+	/*
 	Tutorial getTutorial(String tutorial_id);
 	void addTutorial(Tutorial tutorial);
 	void updateTutorial(Tutorial tutorial);
 	public List<Tutorial> getTutorials();
+	*/
 	
 	//public DB getDB();
-	public Datastore getDatastore();
+	//public Datastore getDatastore();
 	
-	public Mongo getMongo();	
-	public Morphia getMorphia();	
-	public DAO getTutorialDao();
+	//public Mongo getMongo();	
+	//public Morphia getMorphia();	
+	//public DAO getTutorialDao();
 	
 	/*
 	@Transactional(readOnly=true)

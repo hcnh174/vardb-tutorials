@@ -11,6 +11,10 @@
 	<packaging>war</packaging>
 	<version>0.1.0.BUILD-SNAPSHOT</version>
 	<name>operon</name>
+	<properties>
+		<spring.data.jpa.version>1.0.2.RELEASE</spring.data.jpa.version> <!--  1.1.0.M1 -->
+		<spring.data.mongodb.version>1.0.0.RC1</spring.data.mongodb.version>
+	</properties>
 	<dependencies>
         <dependency>
         	<groupId>org.vardb</groupId>
@@ -22,6 +26,16 @@
 			<artifactId>doxia-converter</artifactId>
 			<version>1.2</version>
         </dependency>
+        <dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-jpa</artifactId>
+		    <version>${spring.data.jpa.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-mongodb</artifactId>
+		    <version>${spring.data.mongodb.version}</version>
+		</dependency>
  	</dependencies>
  	<build>
 		<plugins>
